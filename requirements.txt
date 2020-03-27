@@ -3,3 +3,4 @@ flask
 flask_graphql
 Flask-SQLAlchemy
 Flask-Migrate
+psycopg2

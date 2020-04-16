@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_graphql import GraphQLView
 from flask_migrate import Migrate
 
 from WIET_sourcing.models import db
+from schemes.schema import schema
 
 migrate = Migrate()
 
@@ -14,5 +16,14 @@ def create_app(config=None):
 
 	db.init_app(app)
 	migrate.init_app(app, db)
+
+	app.add_url_rule(
+		'/graphql',
+		view_func=GraphQLView.as_view(
+			'graphql',
+			schema=schema,
+			graphiql=True,
+		)
+	)
 
 	return app

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import WIET_sourcing.models.user_profile
 from WIET_sourcing.models import db
 import enum
 
@@ -19,6 +20,6 @@ class QuestionSet(db.Model):
     category = db.Column(db.Enum(Category), nullable=False)
     creation_date = db.Column(db.TIMESTAMP, nullable=False,  default=datetime.now)
     owner_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'), nullable=False)
-    close_date = db.Column(db.Integer, db.TIMESTAMP)
+    close_date = db.Column(db.TIMESTAMP)
 
     owner_profile = db.relationship('UserProfile', backref=db.backref('question_sets', lazy=True))

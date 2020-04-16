@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from WIET_sourcing.models import db
+import WIET_sourcing.models.question
 
 
 class QuestionAnswer(db.Model):

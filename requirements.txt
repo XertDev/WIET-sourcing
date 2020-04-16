@@ -4,3 +4,6 @@ flask-graphql
 Flask-SQLAlchemy
 Flask-Migrate
 psycopg2
+graphene
+graphene-sqlalchemy
+graphene-sqlalchemy-filter

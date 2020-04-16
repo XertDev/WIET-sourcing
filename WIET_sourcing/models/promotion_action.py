@@ -1,5 +1,6 @@
 from WIET_sourcing.models import db
 import enum
+import WIET_sourcing.models.question_set
 
 
 class PromotionType(enum.Enum):

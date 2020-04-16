@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from WIET_sourcing.models import db
 import enum
 
@@ -15,7 +17,7 @@ class QuestionSet(db.Model):
     name = db.Column(db.String(128), unique=True, nullable=False)
     details = db.Column(db.Text, nullable=False)
     category = db.Column(db.Enum(Category), nullable=False)
-    creation_date = db.Column(db.TIMESTAMP, nullable=False)
+    creation_date = db.Column(db.TIMESTAMP, nullable=False,  default=datetime.now)
     owner_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'), nullable=False)
     close_date = db.Column(db.Integer, db.TIMESTAMP)
 

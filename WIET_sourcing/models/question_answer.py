@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from WIET_sourcing.models import db
 
 
@@ -8,7 +10,7 @@ class QuestionAnswer(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'), nullable=False)
     question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
     payload = db.Column(db.JSON, nullable=False)
-    creation_time = db.Column(db.TIMESTAMP, nullable=False)
+    creation_time = db.Column(db.TIMESTAMP, nullable=False,  default=datetime.now)
 
     question = db.relationship('Question', backref=db.backref('answers', lazy=True))
     user = db.relationship('UserProfile', backref=db.backref('answered_questions', lazy=True))

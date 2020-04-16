@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from WIET_sourcing.models import db
 import enum
 
@@ -15,7 +17,7 @@ class QuestionSetReport(db.Model):
     question_set_id = db.Column(db.Integer, db.ForeignKey('question_set.id'), nullable=False)
     type = db.Column(db.Enum(ReportType))
     details = db.Column(db.String(255), nullable=False)
-    creation_time = db.Column(db.TIMESTAMP, nullable=False)
+    creation_time = db.Column(db.TIMESTAMP, nullable=False,  default=datetime.now)
 
     question_set = db.relationship('QuestionSet', backref=db.backref('reports', lazy=True))
     user = db.relationship('UserProfile', backref=db.backref('reports_sent', lazy=True))

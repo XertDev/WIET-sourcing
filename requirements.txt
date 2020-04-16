@@ -1,6 +1,6 @@
 SQLAlchemy
 flask
-flask_graphql
+flask-graphql
 Flask-SQLAlchemy
 Flask-Migrate
 psycopg2

@@ -1,4 +1,5 @@
 # WIET-sourcing
+![Deploy to Heroku](https://github.com/XertDev/WIET-sourcing/workflows/Deploy%20to%20Heroku/badge.svg?branch=master)
 ## Development setup
 ### Basic setup 
 You can clone the app source and create venv with all requirements installed by running the code below. 

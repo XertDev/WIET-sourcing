@@ -21,7 +21,7 @@ You can create "instance/config.py" file for local run configuration. If that is
 ```python
 SQLALCHEMY_DATABASE_URI='here_past_your_uri'
 ``` 
-Alternatively, you can also create local variable either by shell export, or local .env file. 
+Alternatively, you can also create local variable by shell export. 
 ### Running via shell
 For the development setup it is recommended to use "FLASK_ENV" variable. You can create it by running the command below.
 ```shell script

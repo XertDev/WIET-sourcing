@@ -43,3 +43,19 @@ You can specify venv for pycharm to use by
  
  ![Configuration example](https://media.discordapp.net/attachments/700042930760581195/700262052047880212/unknown.png?width=720&height=611)
  
+ ## Heroku deployment
+ The app is deployed under [this](https://wiet-sourcing.herokuapp.com/) address by github action after every push on master branch. 
+ 
+ The heroku authorization is set as secret in github repository settings.
+ 
+ On heroku the app runs under gunicorn wsgi server. The heroku formation is configured by "Procfile". It points to "wsgi.py" script, by which the app is started (note that it is **not** the same configuration as the local one provided in previous sections of this document). 
+ 
+ The heroku app provides "FLASK_ENV=production" and "SQLALCHEMY_DATABASE_URI" enviroment variables. Those can be managed by commands listed below. 
+ ```shell script
+# list all variables
+heroku config 
+# create variable
+heroku config:set VARIABLE_NAME=variable_value
+# remove variable 
+heroku config:unset VARIABLE_NAME
+```

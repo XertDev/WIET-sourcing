@@ -2,7 +2,7 @@ from graphene import relay
 from graphene_sqlalchemy_filter import FilterSet
 
 from WIET_sourcing.models.user_profile import UserProfile
-from schemes.user_profile.user_profile_node import UserProfileNode
+from WIET_sourcing.schemes.user_profile.user_profile_node import UserProfileNode
 
 
 class UserProfileConnection(relay.Connection):

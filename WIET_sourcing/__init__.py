@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 
 from WIET_sourcing.models import db
-from schemes.schema import schema
+from WIET_sourcing.schemes.schema import schema
 
 migrate = Migrate()
 

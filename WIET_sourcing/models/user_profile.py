@@ -3,9 +3,10 @@ from datetime import datetime
 
 from WIET_sourcing.models import db
 
-
+#todo: autogeneration by migration
 class UserRole(enum.Enum):
 	ADMIN = 'ADMIN'
+	MEMBER = 'MEMBER'
 	# TODO: more roles
 
 

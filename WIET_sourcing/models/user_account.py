@@ -1,4 +1,5 @@
 from WIET_sourcing.models import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class UserAccount(db.Model):
@@ -10,4 +11,10 @@ class UserAccount(db.Model):
     password_reset_tok = db.Column(db.String(128))
     password_reset_exp = db.Column(db.TIMESTAMP)
 
-    user_profile = db.relationship('UserProfile', backref=db.backref('user_profile', uselist=False))
+    user_profile = db.relationship('UserProfile', backref=db.backref('user_account', uselist=False))
+
+    def set_password(self, password: str) -> None:
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password: str) -> bool:
+        return check_password_hash(self.password_hash, password)

@@ -4,11 +4,9 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 
 
 class NoNameMeta(BindMetaMixin, DeclarativeMeta):
-	pass
+    pass
 
 
 db = SQLAlchemy(
-	model_class=declarative_base(
-		cls=Model, metaclass=NoNameMeta, name='Model'
-	)
+    model_class=declarative_base(cls=Model, metaclass=NoNameMeta, name="Model")
 )

@@ -1,4 +1,4 @@
-from WIET_sourcing.__init__ import create_app
+from WIET_sourcing import create_app
 
 app = create_app()
 

@@ -6,16 +6,16 @@ from WIET_sourcing.schemes.user_profile.user_profile_node import UserProfileNode
 
 
 class UserProfileConnection(relay.Connection):
-	class Meta:
-		node = UserProfileNode
+    class Meta:
+        node = UserProfileNode
 
 
 class UserProfileFilter(FilterSet):
-	class Meta:
-		model = UserProfile
-		fields = {
-			'name': ['eq', 'ne', 'in', 'like', 'ilike'],
-			'accuracy': [...],
-			'wiet_points': [...],
-			'creation_time': [...],
-		}
+    class Meta:
+        model = UserProfile
+        fields = {
+            "name": ["eq", "ne", "in", "like", "ilike"],
+            "accuracy": [...],
+            "wiet_points": [...],
+            "creation_time": [...],
+        }

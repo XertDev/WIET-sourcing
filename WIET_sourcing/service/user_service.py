@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 
 from sqlalchemy import exc
@@ -8,26 +9,35 @@ from WIET_sourcing.models.user_profile import UserProfile, UserRole
 
 
 def create_user(name: str, email: str, password: str) -> Optional[int]:
-	user_account = UserAccount.query.filter_by(email=email).first()
-	if user_account:
-		return None
+    user_account = UserAccount.query.filter_by(email=email).first()
+    if user_account:
+        return None
 
-	user_account = UserAccount()
-	user_account.email = email
-	user_account.set_password(password)
+    user_account = UserAccount()
+    user_account.email = email
+    user_account.set_password(password)
 
-	user_profile = UserProfile()
-	user_profile.name = name
-	user_profile.role = UserRole.MEMBER
-	user_profile.accuracy = 0
-	user_profile.user_account = user_account
+    user_profile = UserProfile()
+    user_profile.name = name
+    user_profile.role = UserRole.MEMBER
+    user_profile.accuracy = 0
+    user_profile.user_account = user_account
 
-	db.session.add(user_account)
-	try:
-		db.session.commit()
-	except exc.SQLAlchemyError as e:
-		return None
+    db.session.add(user_account)
+    try:
+        db.session.commit()
+        return user_profile.id
+    except exc.SQLAlchemyError as e:
+        logging.exception("Couldn't create profile")
+    return None
 
-	return user_profile.id
+
+def check_email_and_password(email: str, password: str) -> bool:
+    user_acc = get_user_by_email(email)
+    if user_acc:
+        return user_acc.check_password(password)
+    return False
 
 
+def get_user_by_email(email: str) -> Optional[UserAccount]:
+    return UserAccount.query.filter_by(email=email).first()

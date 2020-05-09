@@ -49,7 +49,7 @@ class SignIn(graphene.Mutation):
 
     def mutate(self, info, email, password):
         user_acc = user_service.get_user_by_email(email)
-        if not user_service.check_email_and_password(email, password):
+        if not user_acc.check_password(password):
             return SignIn(success=False)
 
         # Set expiration for the token 5 minutes in the future, convert it to

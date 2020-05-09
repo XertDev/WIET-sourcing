@@ -32,12 +32,5 @@ def create_user(name: str, email: str, password: str) -> Optional[int]:
     return None
 
 
-def check_email_and_password(email: str, password: str) -> bool:
-    user_acc = get_user_by_email(email)
-    if user_acc:
-        return user_acc.check_password(password)
-    return False
-
-
 def get_user_by_email(email: str) -> Optional[UserAccount]:
     return UserAccount.query.filter_by(email=email).first()

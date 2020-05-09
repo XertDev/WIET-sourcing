@@ -1,3 +1,5 @@
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from WIET_sourcing.models import db
 
 

@@ -2,6 +2,7 @@ from flask import Flask
 from flask_graphql import GraphQLView
 from flask_migrate import Migrate
 
+from flask_admin import Admin
 from flask_cors import CORS
 
 from WIET_sourcing.models import db
@@ -30,6 +31,8 @@ dictConfig(
 	}
 )
 
+from flask_admin.contrib.sqla import ModelView
+
 migrate = Migrate()
 
 
@@ -49,8 +52,12 @@ def create_app(config=None):
 			'graphql',
 			schema=schema,
 			graphiql=True,
-			middleware=[AuthorizationMiddleware()]
 		)
 	)
+
+	# Admin panel configuration
+	app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+	admin = Admin(app, name='WIET-sourcing admin', template_mode='bootstrap3')
+	admin.add_view(ModelView(UserProfile, db.session))
 
 	return app

@@ -6,6 +6,7 @@ from flask_admin import Admin
 from flask_cors import CORS
 
 from WIET_sourcing.models import db
+from WIET_sourcing.models.user_profile import UserProfile
 from WIET_sourcing.schemes.schema import schema
 
 from logging.config import dictConfig

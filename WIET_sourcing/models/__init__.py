@@ -1,3 +1,4 @@
 from WIET_sourcing.models.db import db
 
-import WIET_sourcing.models.user_profile
+from WIET_sourcing.models import oauth2_account, promotion_action, question, question_answer, question_set, \
+    question_set_report, user_account, user_profile

@@ -1,14 +1,11 @@
 from WIET_sourcing.models import db
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class UserAccount(db.Model):
-    __tablename__ = "user_account"
+    __tablename__ = 'user_account'
 
-    user_id = db.Column(
-        db.Integer, db.ForeignKey("user_profile.id"), primary_key=True, nullable=False
-    )
-    email = db.Column(db.String(128), nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'), primary_key=True,  nullable=False)
+    email = db.Column(db.String(128), nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     password_reset_tok = db.Column(db.String(128))
     password_reset_exp = db.Column(db.TIMESTAMP)

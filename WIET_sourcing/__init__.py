@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_admin import Admin
 from flask_cors import CORS
 
+from WIET_sourcing.admin.secured_model_view import SecuredModelView
 from WIET_sourcing.models import db
 from WIET_sourcing.models.user_profile import UserProfile
 from WIET_sourcing.schemes.schema import schema
@@ -59,6 +60,6 @@ def create_app(config=None):
 	# Admin panel configuration
 	app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 	admin = Admin(app, name='WIET-sourcing admin', template_mode='bootstrap3')
-	admin.add_view(ModelView(UserProfile, db.session))
+	admin.add_view(SecuredModelView(UserProfile, db.session))
 
 	return app

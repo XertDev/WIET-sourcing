@@ -2,6 +2,8 @@ from flask import Flask
 from flask_graphql import GraphQLView
 from flask_migrate import Migrate
 
+from flask_cors import CORS
+
 from WIET_sourcing.models import db
 from schemes.schema import schema
 
@@ -14,6 +16,7 @@ def create_app(config=None):
 	app.config.from_object('config')
 	app.config.from_pyfile('config.py', silent=True)
 
+	CORS(app)
 	db.init_app(app)
 	migrate.init_app(app, db)
 

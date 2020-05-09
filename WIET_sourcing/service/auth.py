@@ -22,7 +22,7 @@ def get_logged_in_user() -> Optional[UserAccount]:
 
 
 class AuthorizationMiddleware:
-    ALLOWED_PATHS = ('signUp', 'signIn')
+    ALLOWED_PATHS = ('signUp', 'signIn', '__schema')
 
     def _validate_token(self):
         auth_token = request.headers.get('Authorization', 'Bearer ').split('Bearer')[1].strip()

@@ -7,6 +7,10 @@ from flask import request, current_app, g
 from WIET_sourcing.models.user_account import UserAccount
 
 
+def validate_password(password: str) -> bool:
+    return len(password) > 6
+
+
 def get_user_from_token(token) -> UserAccount:
     parsed = jwt.decode(token, current_app.config['KEY_SIGNING_SECRET'], algorithms=["HS256"])
     return UserAccount.query.get(parsed['user_id'])

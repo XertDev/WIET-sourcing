@@ -10,6 +10,7 @@ from flask import current_app
 from uuid import uuid4
 
 from WIET_sourcing.service import user_service
+from WIET_sourcing.service.auth import validate_password
 
 
 class SignUp(graphene.Mutation):
@@ -25,7 +26,7 @@ class SignUp(graphene.Mutation):
     success = graphene.Boolean()
 
     def mutate(self, info, name, email, password):
-        if not validate_email(email):
+        if not validate_email(email) or not validate_password(password):
             return SignUp(success=False)
 
         user_profile_id: Optional[int] = user_service.create_user(name, email, password)

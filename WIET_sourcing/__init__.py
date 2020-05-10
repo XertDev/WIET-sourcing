@@ -9,6 +9,7 @@ from WIET_sourcing.admin.secured_model_view import SecuredModelView
 from WIET_sourcing.models import db
 from WIET_sourcing.models.user_profile import UserProfile
 from WIET_sourcing.schemes.schema import schema
+from WIET_sourcing.views import register_views
 
 from logging.config import dictConfig
 
@@ -33,8 +34,6 @@ dictConfig(
 	}
 )
 
-from flask_admin.contrib.sqla import ModelView
-
 migrate = Migrate()
 
 
@@ -43,6 +42,8 @@ def create_app(config=None):
 
 	app.config.from_object('config')
 	app.config.from_pyfile('config.py', silent=True)
+	app.static_url_path = app.config.get('STATIC_FOLDER')
+	app.static_folder = app.root_path + app.static_url_path
 
 	CORS(app)
 	db.init_app(app)
@@ -57,6 +58,9 @@ def create_app(config=None):
 			middleware=[AuthorizationMiddleware()]
 		)
 	)
+
+	# TODO: not quite sure if this is a proper flask-way of doing this, but seems reasonable
+	register_views(app)
 
 	# Admin panel configuration
 	app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'

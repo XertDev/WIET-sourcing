@@ -54,6 +54,7 @@ def create_app(config=None):
 			'graphql',
 			schema=schema,
 			graphiql=True,
+			middleware=[AuthorizationMiddleware()]
 		)
 	)
 

@@ -49,6 +49,8 @@ class SignIn(graphene.Mutation):
 
     def mutate(self, info, email, password):
         user_acc = user_service.get_user_by_email(email)
+        if not user_acc:
+            return SignIn(success=False)
         if not user_acc.check_password(password):
             return SignIn(success=False)
 

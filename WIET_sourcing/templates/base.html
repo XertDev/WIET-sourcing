@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>{% block title %}{% endblock %} | WIET-sourcing</title>
+
+    <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    {% block head %}
+    {% endblock %}
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">{% block app_name %}WIET-sourcing{% endblock %}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            {% block navbar_prefix %}{% endblock %}
+
+            <ul class="navbar-nav mr-auto">
+                {% block navbar %}
+                {% endblock %}
+            </ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                {% if current_user.logged_in_user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="nav_dropdown"
+                           role="button" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                            {% if request.user.last_name %}
+                                {{ request.user.first_name }}
+                                {{ request.user.last_name }}
+                            {% else %}
+                                {{ request.user }}
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right"
+                             aria-labelledby="nav_dropdown">
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-outline-success my-2 my-sm-0"
+                           role="button">Zaloguj się</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<main role="main" class="flex-shrink-0">
+    <div class="container" id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3 mt-2 bg-dark">
+    <div class="container text-center">
+        <a href="/" class="text-decoration-none">
+            <div class="text-muted">{{ now.year }} WIET-sourcing</div>
+        </a>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

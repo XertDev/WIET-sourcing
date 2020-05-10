@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from sqlalchemy.ext.hybrid import hybrid_property
+
 import WIET_sourcing.models.user_profile
 from WIET_sourcing.models import db
 import enum
@@ -25,3 +27,11 @@ class QuestionSet(db.Model):
     owner_profile = db.relationship(
         "UserProfile", backref=db.backref("question_sets", lazy=True)
     )
+
+    @hybrid_property
+    def question_count(self):
+        return len(self.questions)
+
+    @hybrid_property
+    def report_count(self):
+        return len(self.reports)

@@ -1,3 +1,5 @@
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from WIET_sourcing.models import db
 
 
@@ -13,3 +15,7 @@ class Question(db.Model):
     question_set = db.relationship(
         "QuestionSet", backref=db.backref("questions", lazy=True)
     )
+
+    @hybrid_property
+    def answer_count(self):
+        return len(self.answers)

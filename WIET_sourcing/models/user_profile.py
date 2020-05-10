@@ -1,6 +1,8 @@
 import enum
 from datetime import datetime
 
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from WIET_sourcing.models import db
 
 # todo: autogeneration by migration
@@ -19,3 +21,11 @@ class UserProfile(db.Model):
     accuracy = db.Column(db.Float, nullable=False)
     wiet_points = db.Column(db.Integer, nullable=False, default=0)
     creation_time = db.Column(db.TIMESTAMP, nullable=False, default=datetime.now)
+
+    @hybrid_property
+    def answered_question_count(self):
+        return len(self.answers)
+
+    @hybrid_property
+    def created_question_set_count(self):
+        return len(self.question_sets)

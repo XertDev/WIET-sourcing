@@ -6,6 +6,7 @@ from graphene_sqlalchemy_filter import FilterableConnectionField
 
 from WIET_sourcing.schemes.mutations.sign_up import SignUp, SignIn
 from WIET_sourcing.schemes.promotion_action_node import PromotionActionNode
+from WIET_sourcing.schemes.queries.me import me_field
 from WIET_sourcing.schemes.question_answer_node import QuestionAnswerNode
 from WIET_sourcing.schemes.question_node import QuestionNode
 from WIET_sourcing.schemes.question_set.question_set_connection import (
@@ -28,7 +29,6 @@ class MessageField(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     node = graphene.relay.Node.Field()
-    users = graphene.List(UserProfileNode)
 
     question_set = graphene.relay.Node.Field(QuestionSetNode)
     promotion_action = graphene.relay.Node.Field(PromotionActionNode)
@@ -43,11 +43,7 @@ class Query(graphene.ObjectType):
         UserProfileConnection, filters=UserProfileFilter()
     )
 
-    def resolve_users(self, info):
-        current_user = get_logged_in_user()
-        logging.info("Currently logged in: {current_user.email}")
-        query = UserProfileNode.get_query(info)
-        return query.all()
+    me = me_field
 
 
 class Mutation(graphene.ObjectType):

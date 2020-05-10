@@ -12,6 +12,10 @@ class Category(enum.Enum):
     TEXT = "TEXT"
     # TODO: possibly more (?)
 
+    @classmethod
+    def has_value(cls, value):
+        return value in cls._value2member_map_
+
 
 class QuestionSet(db.Model):
     __tablename__ = "question_set"

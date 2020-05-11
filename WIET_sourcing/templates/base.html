@@ -30,30 +30,30 @@
                 {% block navbar %}
                 {% endblock %}
             </ul>
-            <ul class="navbar-nav my-2 my-lg-0">
-                {% if current_user.logged_in_user %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="nav_dropdown"
-                           role="button" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">
-                            {% if request.user.last_name %}
-                                {{ request.user.first_name }}
-                                {{ request.user.last_name }}
-                            {% else %}
-                                {{ request.user }}
-                            {% endif %}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right"
-                             aria-labelledby="nav_dropdown">
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="/login" class="btn btn-outline-success my-2 my-sm-0"
-                           role="button">Zaloguj się</a>
-                    </li>
-                {% endif %}
-            </ul>
+{#            <ul class="navbar-nav my-2 my-lg-0">#}
+{#                {% if current_user.logged_in_user %}#}
+{#                    <li class="nav-item dropdown">#}
+{#                        <a class="nav-link dropdown-toggle" href="#" id="nav_dropdown"#}
+{#                           role="button" data-toggle="dropdown" aria-haspopup="true"#}
+{#                           aria-expanded="false">#}
+{#                            {% if request.user.last_name %}#}
+{#                                {{ request.user.first_name }}#}
+{#                                {{ request.user.last_name }}#}
+{#                            {% else %}#}
+{#                                {{ request.user }}#}
+{#                            {% endif %}#}
+{#                        </a>#}
+{#                        <div class="dropdown-menu dropdown-menu-right"#}
+{#                             aria-labelledby="nav_dropdown">#}
+{#                        </div>#}
+{#                    </li>#}
+{#                {% else %}#}
+{#                    <li class="nav-item">#}
+{#                        <a href="/login" class="btn btn-outline-success my-2 my-sm-0"#}
+{#                           role="button">Zaloguj się</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#            </ul>#}
         </div>
     </nav>
 </header>

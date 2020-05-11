@@ -59,7 +59,6 @@ def create_app(config=None):
 		)
 	)
 
-	# TODO: not quite sure if this is a proper flask-way of doing this, but seems reasonable
 	register_views(app)
 
 	# Admin panel configuration

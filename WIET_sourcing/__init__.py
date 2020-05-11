@@ -44,6 +44,7 @@ def create_app(config=None):
 	app.config.from_pyfile('config.py', silent=True)
 	app.static_url_path = app.config.get('STATIC_FOLDER')
 	app.static_folder = app.root_path + app.static_url_path
+	app.user_data = app.root_path + app.config.get("USER_DATA_FOLDER")
 
 	CORS(app)
 	db.init_app(app)

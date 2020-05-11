@@ -1,4 +1,5 @@
 import graphene
+from graphql import GraphQLError
 
 from WIET_sourcing.models.question_set import Category
 from WIET_sourcing.service.auth import get_logged_in_user
@@ -16,15 +17,18 @@ class CreateQuestionSetEmpty(graphene.Mutation):
 		category = graphene.String(required=True, description="Set category")
 		description = graphene.String(required=True, description="Set name")
 
-	success = graphene.Boolean()
+	id = graphene.ID()
 
 	def mutate(self, info, name, category, description):
 		if len(name) < 5 or len(description) < 20:
-			return CreateQuestionSetEmpty(success=False)
+			raise GraphQLError("Name or description invalid")
 
 		if not Category.has_value(category):
-			return CreateQuestionSetEmpty(success=False)
+			raise GraphQLError("Invalid category")
 
 		user = get_logged_in_user()
-		create_question_set(name, description, Category(category), user.user_profile)
-		return CreateQuestionSetEmpty(success=True)
+		question_set = create_question_set(name, description, Category(category), user.user_profile)
+		if not question_set:
+			raise GraphQLError("Failed to create empty set")
+
+		return CreateQuestionSetEmpty(id=question_set.id)

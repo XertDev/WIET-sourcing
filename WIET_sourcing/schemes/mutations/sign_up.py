@@ -9,6 +9,7 @@ import time
 from flask import current_app
 from uuid import uuid4
 
+from WIET_sourcing import UserProfile
 from WIET_sourcing.service import user_service
 from WIET_sourcing.service.auth import validate_password
 
@@ -23,17 +24,17 @@ class SignUp(graphene.Mutation):
         email = graphene.String(required=True)
         password = graphene.String(required=True)
 
-    success = graphene.Boolean()
+    id = graphene.ID()
 
     def mutate(self, info, name, email, password):
         if not validate_email(email) or not validate_password(password):
-            return SignUp(success=False)
+            raise GraphQLError("Invalid email or password")
 
-        user_profile_id: Optional[int] = user_service.create_user(name, email, password)
-        if not user_profile_id:
-            return SignUp(success=False)
+        user_profile: Optional[UserProfile] = user_service.create_user(name, email, password)
+        if not user_profile:
+            raise GraphQLError("Failed to create user")
 
-        return SignUp(success=True)
+        return SignUp(id=user_profile.id)
 
 
 class SignIn(graphene.Mutation):
@@ -45,15 +46,12 @@ class SignIn(graphene.Mutation):
         email = graphene.String(required=True, description="Email")
         password = graphene.String(required=True, description="Password")
 
-    success = graphene.Boolean()
     token = graphene.String()
 
     def mutate(self, info, email, password):
         user_acc = user_service.get_user_by_email(email)
-        if not user_acc:
-            return SignIn(success=False)
-        if not user_acc.check_password(password):
-            return SignIn(success=False)
+        if not user_acc or not user_acc.check_password(password):
+            raise GraphQLError("Invalid email or password")
 
         # Set expiration for the token 5 minutes in the future, convert it to
         # unix timestamp as a convention
@@ -64,4 +62,4 @@ class SignIn(graphene.Mutation):
             current_app.config["KEY_SIGNING_SECRET"],
             algorithm="HS256",
         )
-        return SignIn(success=True, token=encoded.decode("UTF-8"))
+        return SignIn(token=encoded.decode("UTF-8"))

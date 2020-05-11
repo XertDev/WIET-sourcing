@@ -26,7 +26,7 @@ def create_user(name: str, email: str, password: str) -> Optional[int]:
     db.session.add(user_account)
     try:
         db.session.commit()
-        return user_profile.id
+        return user_profile
     except exc.SQLAlchemyError as e:
         logging.exception("Couldn't create profile")
     return None

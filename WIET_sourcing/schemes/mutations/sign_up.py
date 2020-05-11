@@ -10,6 +10,7 @@ from flask import current_app
 from uuid import uuid4
 
 from WIET_sourcing import UserProfile
+from WIET_sourcing.schemes.user_profile.user_profile_node import UserProfileNode
 from WIET_sourcing.service import user_service
 from WIET_sourcing.service.auth import validate_password
 
@@ -24,7 +25,7 @@ class SignUp(graphene.Mutation):
         email = graphene.String(required=True)
         password = graphene.String(required=True)
 
-    id = graphene.ID()
+    user_profile = graphene.Field(UserProfileNode)
 
     def mutate(self, info, name, email, password):
         if not validate_email(email) or not validate_password(password):
@@ -34,7 +35,7 @@ class SignUp(graphene.Mutation):
         if not user_profile:
             raise GraphQLError("Failed to create user")
 
-        return SignUp(id=user_profile.id)
+        return SignUp(user_profile=user_profile)
 
 
 class SignIn(graphene.Mutation):

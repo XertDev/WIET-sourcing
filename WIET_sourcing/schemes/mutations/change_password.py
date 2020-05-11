@@ -3,6 +3,7 @@ from graphql import GraphQLError
 from sqlalchemy import exc
 
 from WIET_sourcing.models import db
+from WIET_sourcing.schemes.user_profile.user_profile_node import UserProfileNode
 from WIET_sourcing.service.auth import get_logged_in_user, validate_password
 
 
@@ -14,7 +15,7 @@ class ChangePassword(graphene.Mutation):
 	class Arguments:
 		password = graphene.String(required=True, description="Password")
 
-	id = graphene.ID()
+	user_profile = graphene.Field(UserProfileNode)
 
 	def mutate(self, info, password):
 		user = get_logged_in_user()
@@ -26,4 +27,4 @@ class ChangePassword(graphene.Mutation):
 		except exc.SQLAlchemyError:
 			raise GraphQLError("Failed to change password")
 
-		return ChangePassword(user.id)
+		return ChangePassword(user_profile=user)

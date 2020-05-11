@@ -14,15 +14,15 @@ class UpdateQuestionSetInfo(graphene.Mutation):
 	"""
 
 	class Arguments:
-		id = graphene.ID(required=True, description="Question Set to update ID")
+		node_id = graphene.ID(required=True, description="Question Set to update ID")
 		name = graphene.String(required=False, description="Set name")
 		category = graphene.String(required=False, description="Set category")
 		details = graphene.String(required=False, description="Set details")
 
 	question_set = graphene.Field(QuestionSetNode)
 
-	def mutate(self, info, id, **kwargs):
-		question_set = QuestionSetNode.get_model_from_global_id(id)
+	def mutate(self, info, node_id, **kwargs):
+		question_set = QuestionSetNode.get_model_from_global_id(node_id)
 		if not question_set:
 			raise GraphQLError("Question set not exist")
 

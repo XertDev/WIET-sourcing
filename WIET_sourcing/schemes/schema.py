@@ -2,6 +2,7 @@ import graphene
 from graphene_sqlalchemy_filter import FilterableConnectionField
 
 from WIET_sourcing.schemes.mutations.change_password import ChangePassword
+from WIET_sourcing.schemes.mutations.set.close_question_set import CloseQuestionSet
 from WIET_sourcing.schemes.mutations.set.create_question_set_empty import CreateQuestionSetEmpty
 from WIET_sourcing.schemes.mutations.set.update_question_set_info import UpdateQuestionSetInfo
 from WIET_sourcing.schemes.mutations.sign_up import SignUp, SignIn
@@ -19,10 +20,6 @@ from WIET_sourcing.schemes.user_profile.user_profile_connection import (
     UserProfileConnection,
     UserProfileFilter,
 )
-
-
-class MessageField(graphene.ObjectType):
-    message = graphene.String()
 
 
 class Query(graphene.ObjectType):
@@ -52,6 +49,7 @@ class Mutation(graphene.ObjectType):
 
     create_question_set_empty = CreateQuestionSetEmpty.Field()
     update_question_set_info = UpdateQuestionSetInfo.Field()
+    close_question_set = CloseQuestionSet.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

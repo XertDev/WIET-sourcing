@@ -1,11 +1,13 @@
 import graphene
 from graphene_sqlalchemy_filter import FilterableConnectionField
 
-from WIET_sourcing.schemes.mutations.change_password import ChangePassword
+from WIET_sourcing.schemes.mutations.auth.change_password import ChangePassword
+from WIET_sourcing.schemes.mutations.auth.refresh_sign_in import RefreshSignIn
 from WIET_sourcing.schemes.mutations.set.close_question_set import CloseQuestionSet
 from WIET_sourcing.schemes.mutations.set.create_question_set_empty import CreateQuestionSetEmpty
 from WIET_sourcing.schemes.mutations.set.update_question_set_info import UpdateQuestionSetInfo
-from WIET_sourcing.schemes.mutations.sign_up import SignUp, SignIn
+from WIET_sourcing.schemes.mutations.auth.sign_up import SignUp
+from WIET_sourcing.schemes.mutations.auth.sign_in import SignIn
 from WIET_sourcing.schemes.promotion_action_node import PromotionActionNode
 from WIET_sourcing.schemes.queries.me import me_field
 from WIET_sourcing.schemes.question_answer_node import QuestionAnswerNode
@@ -44,6 +46,7 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     sign_up = SignUp.Field()
     sign_in = SignIn.Field()
+    refresh_sign_in = RefreshSignIn.Field()
 
     change_password = ChangePassword.Field()
 

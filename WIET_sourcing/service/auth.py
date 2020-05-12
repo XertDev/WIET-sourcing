@@ -1,5 +1,8 @@
+import datetime
 import logging
+import time
 from typing import Optional
+from uuid import uuid4
 
 import jwt
 from flask import request, current_app, g
@@ -15,6 +18,18 @@ def get_user_from_token(token) -> UserAccount:
     parsed = jwt.decode(token, current_app.config['KEY_SIGNING_SECRET'], algorithms=["HS256"])
     return UserAccount.query.get(parsed['user_id'])
 
+
+def generate_user_token(user_account: UserAccount) -> str:
+    # Set expiration for the token 5 minutes in the future, convert it to
+    # unix timestamp as a convention
+    now = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    exp = time.mktime(now.timetuple())
+    encoded = jwt.encode(
+        {"user_id": user_account.user_id, "exp": exp, "jti": str(uuid4())},
+        current_app.config["KEY_SIGNING_SECRET"],
+        algorithm="HS256",
+    )
+    return encoded.decode("UTF-8")
 
 def get_logged_in_user() -> Optional[UserAccount]:
     """

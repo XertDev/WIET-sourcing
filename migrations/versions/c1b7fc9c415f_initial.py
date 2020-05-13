@@ -1,8 +1,8 @@
-"""empty message
+"""Initial
 
-Revision ID: 6ecea9323ccb
+Revision ID: c1b7fc9c415f
 Revises: 
-Create Date: 2020-05-09 22:38:51.379987
+Create Date: 2020-05-13 15:04:01.513169
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6ecea9323ccb'
+revision = 'c1b7fc9c415f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('user_profile',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=64), nullable=False),
-    sa.Column('role', sa.Enum('ADMIN', 'MEMBER', name='userrole'), nullable=False),
+    sa.Column('role', sa.String(length=128), nullable=False),
     sa.Column('accuracy', sa.Float(), nullable=False),
     sa.Column('wiet_points', sa.Integer(), nullable=False),
     sa.Column('creation_time', sa.TIMESTAMP(), nullable=False),
@@ -40,7 +40,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=128), nullable=False),
     sa.Column('details', sa.Text(), nullable=False),
-    sa.Column('category', sa.Enum('PHOTO', 'TEXT', name='category'), nullable=False),
+    sa.Column('category', sa.String(length=128), nullable=False),
     sa.Column('creation_date', sa.TIMESTAMP(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('close_date', sa.TIMESTAMP(), nullable=True),
@@ -60,7 +60,7 @@ def upgrade():
     op.create_table('promotion_action',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('question_set_id', sa.Integer(), nullable=False),
-    sa.Column('type', sa.Enum('BASIC', 'PREMIUM', name='promotiontype'), nullable=False),
+    sa.Column('type', sa.String(length=128), nullable=False),
     sa.Column('start_time', sa.TIMESTAMP(), nullable=False),
     sa.Column('end_time', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['question_set_id'], ['question_set.id'], ),
@@ -77,7 +77,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('question_set_id', sa.Integer(), nullable=False),
-    sa.Column('type', sa.Enum('INAPPROPRIATE_CONTENT', name='reporttype'), nullable=True),
+    sa.Column('type', sa.String(length=128), nullable=False),
     sa.Column('details', sa.String(length=255), nullable=False),
     sa.Column('creation_time', sa.TIMESTAMP(), nullable=False),
     sa.ForeignKeyConstraint(['question_set_id'], ['question_set.id'], ),

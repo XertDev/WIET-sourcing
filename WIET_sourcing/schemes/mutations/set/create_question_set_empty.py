@@ -28,7 +28,7 @@ class CreateQuestionSetEmpty(graphene.Mutation):
 			raise GraphQLError("Invalid category")
 
 		user = get_logged_in_user()
-		question_set = create_question_set(name, details, Category[category], user.user_profile)
+		question_set = create_question_set(name, details, Category[category].value, user.user_profile)
 		if not question_set:
 			raise GraphQLError("Failed to create empty set")
 

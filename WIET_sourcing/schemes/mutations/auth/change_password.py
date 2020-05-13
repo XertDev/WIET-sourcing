@@ -27,4 +27,4 @@ class ChangePassword(graphene.Mutation):
 		except exc.SQLAlchemyError:
 			raise GraphQLError("Failed to change password")
 
-		return ChangePassword(user_profile=user)
+		return ChangePassword(user_profile=user.user_profile)

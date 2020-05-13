@@ -11,7 +11,7 @@ class QuestionNode(SQLAlchemyObjectType):
     class Meta:
         model = Question
         interfaces = (relay.Node,)
-        exclude_fields = ("id", "question_set_id", )
+        exclude_fields = ("id", "question_set_id", "payload", )
 
     @classmethod
     def get_model_from_global_id(cls, global_id: str) -> Optional[Question]:

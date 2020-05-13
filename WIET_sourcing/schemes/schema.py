@@ -8,16 +8,16 @@ from WIET_sourcing.schemes.mutations.set.create_question_set_empty import Create
 from WIET_sourcing.schemes.mutations.set.update_question_set_info import UpdateQuestionSetInfo
 from WIET_sourcing.schemes.mutations.auth.sign_up import SignUp
 from WIET_sourcing.schemes.mutations.auth.sign_in import SignIn
-from WIET_sourcing.schemes.promotion_action_node import PromotionActionNode
+from WIET_sourcing.schemes.question_set.promotion_action_node import PromotionActionNode
 from WIET_sourcing.schemes.queries.me import me_field
-from WIET_sourcing.schemes.question_answer_node import QuestionAnswerNode
-from WIET_sourcing.schemes.question_node import QuestionNode
+from WIET_sourcing.schemes.question.question_answer_node import QuestionAnswerNode
+from WIET_sourcing.schemes.question.question_node import QuestionNode
 from WIET_sourcing.schemes.question_set.question_set_connection import (
     QuestionSetConnection,
     QuestionSetFilter,
 )
 from WIET_sourcing.schemes.question_set.question_set_node import QuestionSetNode
-from WIET_sourcing.schemes.question_set_report_node import QuestionSetReportNode
+from WIET_sourcing.schemes.question_set.question_set_report_node import QuestionSetReportNode
 from WIET_sourcing.schemes.user_profile.user_profile_connection import (
     UserProfileConnection,
     UserProfileFilter,

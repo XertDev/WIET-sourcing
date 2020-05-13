@@ -1,15 +1,12 @@
 from datetime import datetime
+from .ownEnum import Enum
 
 from WIET_sourcing.models import db
 
 
-class ReportType:
+class ReportType(Enum):
     INAPPROPRIATE_CONTENT = "INAPPROPRIATE_CONTENT"
     # TODO: possibly more (?)
-
-    @classmethod
-    def get_all(cls):
-        return [cls.INAPPROPRIATE_CONTENT]
 
 
 class QuestionSetReport(db.Model):

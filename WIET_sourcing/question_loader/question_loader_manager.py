@@ -16,8 +16,8 @@ class QuestionLoaderManager:
 	loaders_package = "WIET_sourcing.question_loader.loaders"
 
 	def __init__(self):
-		self.reload_loaders()
 		self._loaders = {}
+		self.reload_loaders()
 
 	def reload_loaders(self) -> None:
 		"""
@@ -60,3 +60,11 @@ class QuestionLoaderManager:
 
 	def is_question_type_supported(self, typename: str) -> bool:
 		return typename in self._loaders.keys()
+
+	def create_question_union_node(self) -> Type[graphene.Union]:
+		meta = type("Meta", (object, ), {
+			"types": self.get_supported_question_node_classes()
+		})
+		return type("QuestionUnion", (graphene.Union,), {
+				"Meta": meta
+			})

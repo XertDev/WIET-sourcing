@@ -1,15 +1,18 @@
-import enum
 from datetime import datetime
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from WIET_sourcing.models import db
 
-# todo: autogeneration by migration
-class UserRole(enum.Enum):
+
+class UserRole:
     ADMIN = "ADMIN"
     MEMBER = "MEMBER"
-    # TODO: more roles
+    # TODO: possibly more (?)
+
+    @classmethod
+    def get_all(cls):
+        return [cls.ADMIN, cls.MEMBER]
 
 
 class UserProfile(db.Model):
@@ -17,7 +20,7 @@ class UserProfile(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
-    role = db.Column(db.Enum(UserRole), nullable=False)
+    role = db.Column(db.String(128), nullable=False)
     accuracy = db.Column(db.Float, nullable=False)
     wiet_points = db.Column(db.Integer, nullable=False, default=0)
     creation_time = db.Column(db.TIMESTAMP, nullable=False, default=datetime.now)

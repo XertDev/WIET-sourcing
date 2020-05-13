@@ -1,12 +1,15 @@
 from WIET_sourcing.models import db
-import enum
 import WIET_sourcing.models.question_set
 
 
-class PromotionType(enum.Enum):
+class PromotionType:
     BASIC = "BASIC"
     PREMIUM = "PREMIUM"
     # TODO: possibly more (?)
+
+    @classmethod
+    def get_all(cls):
+        return [cls.BASIC, cls.PREMIUM]
 
 
 class PromotionAction(db.Model):
@@ -16,7 +19,7 @@ class PromotionAction(db.Model):
     question_set_id = db.Column(
         db.Integer, db.ForeignKey("question_set.id"), nullable=False
     )
-    type = db.Column(db.Enum(PromotionType), nullable=False)
+    type = db.Column(db.String(128), nullable=False)
     start_time = db.Column(db.TIMESTAMP, nullable=False)
     end_time = db.Column(db.TIMESTAMP)
 

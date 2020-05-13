@@ -1,12 +1,15 @@
 from datetime import datetime
 
 from WIET_sourcing.models import db
-import enum
 
 
-class ReportType(enum.Enum):
+class ReportType:
     INAPPROPRIATE_CONTENT = "INAPPROPRIATE_CONTENT"
-    # TODO: probably need to make more types
+    # TODO: possibly more (?)
+
+    @classmethod
+    def get_all(cls):
+        return [cls.INAPPROPRIATE_CONTENT]
 
 
 class QuestionSetReport(db.Model):
@@ -17,7 +20,7 @@ class QuestionSetReport(db.Model):
     question_set_id = db.Column(
         db.Integer, db.ForeignKey("question_set.id"), nullable=False
     )
-    type = db.Column(db.Enum(ReportType))
+    type = db.Column(db.String(128), nullable=False)
     details = db.Column(db.String(255), nullable=False)
     creation_time = db.Column(db.TIMESTAMP, nullable=False, default=datetime.now)
 

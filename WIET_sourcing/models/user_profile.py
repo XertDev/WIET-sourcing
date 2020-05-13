@@ -1,18 +1,15 @@
 from datetime import datetime
+from .ownEnum import Enum
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from WIET_sourcing.models import db
 
 
-class UserRole:
+class UserRole(Enum):
     ADMIN = "ADMIN"
     MEMBER = "MEMBER"
     # TODO: possibly more (?)
-
-    @classmethod
-    def get_all(cls):
-        return [cls.ADMIN, cls.MEMBER]
 
 
 class UserProfile(db.Model):

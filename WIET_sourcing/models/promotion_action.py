@@ -1,15 +1,13 @@
+from .ownEnum import Enum
+
 from WIET_sourcing.models import db
 import WIET_sourcing.models.question_set
 
 
-class PromotionType:
+class PromotionType(Enum):
     BASIC = "BASIC"
     PREMIUM = "PREMIUM"
     # TODO: possibly more (?)
-
-    @classmethod
-    def get_all(cls):
-        return [cls.BASIC, cls.PREMIUM]
 
 
 class PromotionAction(db.Model):

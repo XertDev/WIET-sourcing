@@ -1,4 +1,5 @@
 from datetime import datetime
+from .ownEnum import Enum
 
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -6,18 +7,10 @@ import WIET_sourcing.models.user_profile
 from WIET_sourcing.models import db
 
 
-class Category:
+class Category(Enum):
     PHOTO = "PHOTO"
     TEXT = "TEXT"
     # TODO: possibly more (?)
-
-    @classmethod
-    def get_all(cls):
-        return [cls.PHOTO, cls.TEXT]
-
-    @classmethod
-    def has_value(cls, value):
-        return value in cls.get_all()
 
 
 class QuestionSet(db.Model):

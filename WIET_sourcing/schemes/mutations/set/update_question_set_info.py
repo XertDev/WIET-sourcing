@@ -45,7 +45,7 @@ class UpdateQuestionSetInfo(graphene.Mutation):
 			category_str = kwargs["category"]
 			if not Category.has_value(category_str):
 				raise GraphQLError("Invalid category")
-			question_set.category = Category[category_str]
+			question_set.category = Category[category_str].value
 
 		try:
 			db.session.commit()

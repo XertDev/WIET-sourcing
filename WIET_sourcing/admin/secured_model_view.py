@@ -10,7 +10,7 @@ class SecuredModelView(sqla.ModelView):
 		current_user = get_logged_in_user()
 		if current_user is None:
 			return False
-		return current_user.user_profile.role == UserRole.ADMIN
+		return current_user.user_profile.role == UserRole.ADMIN.value
 
 	def inaccessible_callback(self, name, **kwargs) -> None:
 		# redirect to login page if user doesn't have access

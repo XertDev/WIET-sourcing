@@ -19,7 +19,7 @@ def create_user(name: str, email: str, password: str) -> Optional[int]:
 
     user_profile = UserProfile()
     user_profile.name = name
-    user_profile.role = UserRole.MEMBER
+    user_profile.role = UserRole.MEMBER.value
     user_profile.accuracy = 0
     user_profile.user_account = user_account
 

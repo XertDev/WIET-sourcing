@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_admin.contrib.sqla import ModelView
 from flask_graphql import GraphQLView
 from flask_migrate import Migrate
 
@@ -42,6 +43,7 @@ def create_app(config=None):
 
 	app.config.from_object('config')
 	app.config.from_pyfile('config.py', silent=True)
+	app.secret_key = app.config.get("KEY_SIGNING_SECRET")
 	app.static_url_path = app.config.get('STATIC_FOLDER')
 	app.static_folder = app.root_path + app.static_url_path
 	app.user_data = app.root_path + app.config.get("USER_DATA_FOLDER")
@@ -65,6 +67,6 @@ def create_app(config=None):
 	# Admin panel configuration
 	app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 	admin = Admin(app, name='WIET-sourcing admin', template_mode='bootstrap3')
-	admin.add_view(SecuredModelView(UserProfile, db.session))
+	# admin.add_view(ModelView(UserProfile, db.session))
 
 	return app

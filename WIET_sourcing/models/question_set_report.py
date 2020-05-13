@@ -6,7 +6,7 @@ import enum
 
 class ReportType(enum.Enum):
     INAPPROPRIATE_CONTENT = "INAPPROPRIATE_CONTENT"
-    # TODO: probably need to make more types
+    # TODO: probably need to make more loaders
 
 
 class QuestionSetReport(db.Model):

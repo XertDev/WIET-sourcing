@@ -8,8 +8,10 @@ from WIET_sourcing.models import db
 from WIET_sourcing.models.question_set import QuestionSet, Category
 
 
-# TODO: Category as String not Enum?
-def create_question_set(name: str, details: Optional[str], category: Category, owner: UserProfile):
+def create_question_set(name: str, details: Optional[str], category: str, owner: UserProfile):
+	if not Category.has_value(category):
+		return None
+
 	question_set = QuestionSet()
 	question_set.name = name
 	question_set.details = details

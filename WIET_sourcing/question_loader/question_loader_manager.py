@@ -1,5 +1,6 @@
 import inspect
 import pkgutil
+from importlib import import_module
 from typing import List, Any, Dict, Type
 
 import graphene
@@ -25,15 +26,18 @@ class QuestionLoaderManager:
 		:return:
 		"""
 		self._loaders = {}
-		imported_package = __import__(self.loaders_package)
+		imported_package = import_module(self.loaders_package)
 
 		for _, loader_name, is_pkg in pkgutil.iter_modules(imported_package.__path__, imported_package.__name__ + "."):
 			if not is_pkg:
-				loader_module = __import__(loader_name)
+				loader_module = import_module(loader_name)
+				print("Loaded {}".format(loader_name))
+
 				cls_members = inspect.getmembers(loader_module, inspect.isclass)
 				for (_, loader_class) in cls_members:
 					if issubclass(loader_class, AbstractQuestionLoader) and (loader_class is not AbstractQuestionLoader):
 						typename = loader_class.typename
+						print("Loaded {}".format(typename))
 
 						if typename in self._loaders.keys():
 							raise RuntimeError("Duplicated loader! {}".format(typename))
@@ -43,7 +47,8 @@ class QuestionLoaderManager:
 		"""
 		:return: all registered question classes
 		"""
-		return [loader.get_question_node_class() for loader in self._loaders.values()]
+		x = [loader.get_question_node_class() for loader in self._loaders.values()]
+		return x
 
 	def load_question(self, payload: dict) -> graphene.ObjectType:
 		"""

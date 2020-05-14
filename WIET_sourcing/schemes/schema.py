@@ -1,6 +1,7 @@
 import graphene
 from graphene_sqlalchemy_filter import FilterableConnectionField
 
+from WIET_sourcing.question_loader.question_loader_manager import QuestionLoaderManager
 from WIET_sourcing.schemes.mutations.auth.change_password import ChangePassword
 from WIET_sourcing.schemes.mutations.auth.refresh_sign_in import RefreshSignIn
 from WIET_sourcing.schemes.mutations.set.close_question_set import CloseQuestionSet
@@ -23,6 +24,7 @@ from WIET_sourcing.schemes.user_profile.user_profile_connection import (
     UserProfileFilter,
 )
 
+manager = QuestionLoaderManager()
 
 class Query(graphene.ObjectType):
     node = graphene.relay.Node.Field()
@@ -32,6 +34,7 @@ class Query(graphene.ObjectType):
     question_answer = graphene.relay.Node.Field(QuestionAnswerNode)
     question = graphene.relay.Node.Field(QuestionNode)
     question_set_report = graphene.relay.Node.Field(QuestionSetReportNode)
+    question_value_union = graphene.relay.Node.Field(manager.create_question_union_node())
 
     all_question_sets = FilterableConnectionField(
         QuestionSetConnection, filters=QuestionSetFilter()

@@ -9,12 +9,6 @@ class AbstractQuestionLoader(ABC):
 	Question loader interface. Base class that each loader must inherit from.
 	"""
 
-	typename: str
-
-	def __init__(self, typename: str):
-		self.typename = typename
-		super().__init__()
-
 	@staticmethod
 	@abstractmethod
 	def get_question_node_class() -> Type[graphene.ObjectType]:

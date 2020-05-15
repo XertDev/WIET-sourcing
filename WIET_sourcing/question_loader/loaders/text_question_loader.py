@@ -6,6 +6,7 @@ from WIET_sourcing.question_loader.abstract_question_loader import AbstractQuest
 
 
 class TextQuestionNode(graphene.ObjectType):
+	multi_answer = graphene.Boolean()
 	question = graphene.String()
 	answers = graphene.List(graphene.String)
 
@@ -20,6 +21,7 @@ class TextQuestionLoader(AbstractQuestionLoader):
 	@staticmethod
 	def load_node_from_json(payload: dict) -> graphene.ObjectType:
 		node = TextQuestionNode()
+		node.multi_answer = payload["multi_answer"]
 		node.question = payload["question"]
 		node.answers = payload["answers"]
 

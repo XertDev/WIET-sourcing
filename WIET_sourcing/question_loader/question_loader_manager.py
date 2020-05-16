@@ -15,6 +15,7 @@ class QuestionLoaderManager:
 	"""
 	_loaders: Dict[str, Type[AbstractQuestionLoader]]
 	loaders_package = "WIET_sourcing.question_loader.loaders"
+	_loader_file = "loader"
 
 	def __init__(self):
 		self._loaders = {}
@@ -29,15 +30,18 @@ class QuestionLoaderManager:
 		imported_package = import_module(self.loaders_package)
 
 		for _, loader_name, is_pkg in pkgutil.iter_modules(imported_package.__path__, imported_package.__name__ + "."):
-			if not is_pkg:
-				loader_module = import_module(loader_name)
-				print("Loaded {}".format(loader_name))
+			if is_pkg:
+				try:
+					loader_module_package = import_module("{}.{}".format(loader_name, self._loader_file))
+				except ModuleNotFoundError as e:
+					print("Plugin does not contain loader file")
+					continue
 
-				cls_members = inspect.getmembers(loader_module, inspect.isclass)
+				cls_members = inspect.getmembers(loader_module_package, inspect.isclass)
 				for (_, loader_class) in cls_members:
 					if issubclass(loader_class, AbstractQuestionLoader) and (loader_class is not AbstractQuestionLoader):
 						typename = loader_class.typename
-						print("Loaded {}".format(typename))
+						print("Loaded question plugin: {}".format(typename))
 
 						if typename in self._loaders.keys():
 							raise RuntimeError("Duplicated loader! {}".format(typename))

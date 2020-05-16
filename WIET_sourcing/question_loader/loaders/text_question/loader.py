@@ -3,12 +3,7 @@ from typing import Type
 import graphene
 
 from WIET_sourcing.question_loader.abstract_question_loader import AbstractQuestionLoader
-
-
-class TextQuestionNode(graphene.ObjectType):
-	multi_answer = graphene.Boolean()
-	question = graphene.String()
-	answers = graphene.List(graphene.String)
+from WIET_sourcing.question_loader.loaders.text_question.text_question_node import TextQuestionNode
 
 
 class TextQuestionLoader(AbstractQuestionLoader):

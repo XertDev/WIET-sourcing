@@ -1,7 +1,7 @@
 import inspect
 import pkgutil
 from importlib import import_module
-from typing import List, Any, Dict, Type
+from typing import List, Any, Dict, Type, Tuple
 
 import graphene
 
@@ -40,7 +40,7 @@ class QuestionLoaderManager:
 				cls_members = inspect.getmembers(loader_module_package, inspect.isclass)
 				for (_, loader_class) in cls_members:
 					if issubclass(loader_class, AbstractQuestionLoader) and (loader_class is not AbstractQuestionLoader):
-						typename = loader_class.typename
+						typename = loader_class.get_typename()
 						print("Loaded question plugin: {}".format(typename))
 
 						if typename in self._loaders.keys():
@@ -51,8 +51,13 @@ class QuestionLoaderManager:
 		"""
 		:return: all registered question classes
 		"""
-		x = [loader.get_question_node_class() for loader in self._loaders.values()]
-		return x
+		return [loader.get_question_node_class() for loader in self._loaders.values()]
+
+	def get_supported_question_create_mutations(self) -> List[Tuple[str, Type[graphene.ObjectType]]]:
+		"""
+		:return: all registered question create mutations
+		"""
+		return [(loader.get_typename(), loader.get_create_mutation_node()) for loader in self._loaders.values()]
 
 	def load_question(self, payload: dict) -> graphene.ObjectType:
 		"""

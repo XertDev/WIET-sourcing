@@ -21,11 +21,28 @@ class AbstractQuestionLoader(ABC):
 
 	@staticmethod
 	@abstractmethod
+	def get_create_mutation_node() -> Type[graphene.ObjectType]:
+		"""
+		Method to acquire create mutation for question
+		:return: Class of mutation which create question specified by loader
+		(which must also be a subclass of graphene.ObjectType)
+		"""
+
+	@staticmethod
+	@abstractmethod
 	def load_node_from_json(json: dict) -> graphene.ObjectType:
 		"""
 		Decode question from json
 		:param json encoded question:
 		:return: Question object
+		"""
+		pass
+
+	@staticmethod
+	@abstractmethod
+	def get_typename() -> str:
+		"""
+		:return: question type name
 		"""
 		pass
 

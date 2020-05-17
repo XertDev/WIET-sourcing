@@ -19,7 +19,8 @@ def create_question_set(name: str, details: Optional[str], category: Category, o
 
 	try:
 		db.session.commit()
-		return question_set
 	except exc.SQLAlchemyError:
 		logging.exception("Couldn't create question set")
-	return None
+		return None
+	return question_set
+

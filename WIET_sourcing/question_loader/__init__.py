@@ -1,0 +1,3 @@
+from WIET_sourcing.question_loader.question_loader_manager import QuestionLoaderManager
+
+question_loader_manager = QuestionLoaderManager()

@@ -53,6 +53,12 @@ class QuestionLoaderManager:
 		"""
 		return [loader.get_question_node_class() for loader in self._loaders.values()]
 
+	def get_supported_question_answer_create_mutations(self) -> List[Tuple[str, Type[graphene.ObjectType]]]:
+		"""
+		:return: all registered question answer create mutations
+		"""
+		return [(loader.get_typename(), loader.get_create_answer_mutation_node()) for loader in self._loaders.values()]
+
 	def get_supported_question_create_mutations(self) -> List[Tuple[str, Type[graphene.ObjectType]]]:
 		"""
 		:return: all registered question create mutations

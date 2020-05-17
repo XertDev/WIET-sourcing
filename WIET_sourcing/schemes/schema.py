@@ -59,6 +59,9 @@ def create_mutation_schema() -> Type[graphene.ObjectType]:
     for name, mutation in question_loader_manager.get_supported_question_create_mutations():
         mutations["create_" + name] = mutation.Field()
 
+    for name, mutation in question_loader_manager.get_supported_question_answer_create_mutations():
+        mutations["create_" + name + "_answer"] = mutation.Field()
+
     return type("Mutation", (graphene.ObjectType,), mutations)
 
 

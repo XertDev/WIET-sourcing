@@ -27,6 +27,17 @@ class AbstractQuestionLoader(ABC):
 		:return: Class of mutation which create question specified by loader
 		(which must also be a subclass of graphene.ObjectType)
 		"""
+		pass
+
+	@staticmethod
+	@abstractmethod
+	def get_create_answer_mutation_node() -> Type[graphene.ObjectType]:
+		"""
+		Method to acquire create answer mutation for question
+		:return: Class of mutation which create answer for question specified by loader
+		(which must also be a subclass of graphene.ObjectType)
+		"""
+		pass
 
 	@staticmethod
 	@abstractmethod

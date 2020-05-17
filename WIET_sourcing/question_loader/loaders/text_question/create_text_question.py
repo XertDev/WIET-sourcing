@@ -5,13 +5,14 @@ from WIET_sourcing.service.question_service import create_question
 
 
 class CreateTextQuestion(graphene.ClientIDMutation):
+	"""
+	Mutation which add text question with answers to choose
+	"""
 	class Input:
 		question_set_node_id = graphene.ID(required=True, description="ID of set which the question should be add to")
 		multi_answer = graphene.Boolean(required=True, description="user can specify multiple answers for question")
 		question = graphene.String(required=True, description="Question phrase")
 		answers = graphene.List(graphene.String, required=True, description="Available answers")
-
-	question_id = graphene.ID()
 
 	def mutate_and_get_payload(parent, info, question_set_node_id, multi_answer, question, answers):
 		payload = {
@@ -22,7 +23,5 @@ class CreateTextQuestion(graphene.ClientIDMutation):
 		}
 
 		question_id = create_question(question_set_node_id, payload)
-		if question_id:
-			return CreateTextQuestion(question_id=question_id)
-		else:
+		if not question_id:
 			raise GraphQLError("Failed to create question")

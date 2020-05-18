@@ -17,6 +17,7 @@ from WIET_sourcing.schemes.question_set.question_set_connection import (
     QuestionSetFilter,
 )
 from WIET_sourcing.schemes.question_set.question_set_node import QuestionSetNode
+from WIET_sourcing.schemes.question_set.question_set_tag_node import QuestionSetTagNode
 from WIET_sourcing.schemes.question_set_report_node import QuestionSetReportNode
 from WIET_sourcing.schemes.user_profile.user_profile_connection import (
     UserProfileConnection,
@@ -31,11 +32,13 @@ class Query(graphene.ObjectType):
     promotion_action = graphene.relay.Node.Field(PromotionActionNode)
     question_answer = graphene.relay.Node.Field(QuestionAnswerNode)
     question = graphene.relay.Node.Field(QuestionNode)
+    question_set_tag = graphene.relay.Node.Field(QuestionSetTagNode)
     question_set_report = graphene.relay.Node.Field(QuestionSetReportNode)
 
     all_question_sets = FilterableConnectionField(
         QuestionSetConnection, filters=QuestionSetFilter()
     )
+
     all_users = FilterableConnectionField(
         UserProfileConnection, filters=UserProfileFilter()
     )

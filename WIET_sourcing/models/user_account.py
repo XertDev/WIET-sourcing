@@ -1,6 +1,11 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from WIET_sourcing.models import db
+from enum import Enum
+
+class UserState(Enum):
+    UNVERIFIED = "UNVERIFIED"
+    # TODO: add more
 
 
 class UserAccount(db.Model):
@@ -11,6 +16,7 @@ class UserAccount(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     password_reset_tok = db.Column(db.String(128))
     password_reset_exp = db.Column(db.TIMESTAMP)
+    user_state = db.Column(db.String(32), nullable=False, server_default=UserState.UNVERIFIED.value)
 
     user_profile = db.relationship(
         "UserProfile", backref=db.backref("user_account", uselist=False)

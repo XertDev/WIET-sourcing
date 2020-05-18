@@ -28,6 +28,10 @@ class QuestionSet(db.Model):
         "UserProfile", backref=db.backref("question_sets", lazy=True)
     )
 
+    tags = db.relationship(
+        "QuestionSetToTag", back_populates="question_set"
+    )
+
     @hybrid_property
     def question_count(self):
         return len(self.questions)

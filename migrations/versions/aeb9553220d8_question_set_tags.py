@@ -1,8 +1,8 @@
 """question set tags
 
-Revision ID: 77d38d83ec29
+Revision ID: aeb9553220d8
 Revises: 6184062f7e38
-Create Date: 2020-05-18 11:41:26.704047
+Create Date: 2020-05-18 12:07:39.023349
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '77d38d83ec29'
+revision = 'aeb9553220d8'
 down_revision = '6184062f7e38'
 branch_labels = None
 depends_on = None
@@ -34,7 +34,7 @@ def upgrade():
     op.alter_column('question_set_report', 'type',
                existing_type=sa.VARCHAR(length=128),
                nullable=False)
-    op.add_column('user_account', sa.Column('user_state', sa.String(length=32), nullable=False))
+    op.add_column('user_account', sa.Column('user_state', sa.String(length=32), server_default='UNVERIFIED', nullable=False))
     # ### end Alembic commands ###
 
 

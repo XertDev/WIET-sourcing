@@ -23,6 +23,7 @@ class QuestionSet(db.Model):
     creation_date = db.Column(db.TIMESTAMP, nullable=False, default=datetime.now)
     owner_id = db.Column(db.Integer, db.ForeignKey("user_profile.id"), nullable=False)
     close_date = db.Column(db.TIMESTAMP)
+    open_date = db.Column(db.TIMESTAMP)
 
     owner_profile = db.relationship(
         "UserProfile", backref=db.backref("question_sets", lazy=True)

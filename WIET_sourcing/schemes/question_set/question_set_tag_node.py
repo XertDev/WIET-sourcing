@@ -1,11 +1,11 @@
 import graphene
 from graphene import relay
-from graphene_sqlalchemy import SQLAlchemyObjectType
 
 from WIET_sourcing.models.question_set_to_tag import QuestionSetToTag
+from WIET_sourcing.schemes.utils.custom_sql_alchemy_object_type import CustomSQLAlchemyObjectType
 
 
-class QuestionSetTagNode(SQLAlchemyObjectType):
+class QuestionSetTagNode(CustomSQLAlchemyObjectType):
     class Meta:
         model = QuestionSetToTag
         interfaces = (relay.Node,)

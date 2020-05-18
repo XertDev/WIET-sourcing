@@ -20,9 +20,9 @@ def get_user_from_token(token) -> UserAccount:
 
 
 def generate_user_token(user_account: UserAccount) -> str:
-    # Set expiration for the token 5 minutes in the future, convert it to
+    # Set expiration for the token 30 minutes in the future, convert it to
     # unix timestamp as a convention
-    now = datetime.datetime.now() + datetime.timedelta(minutes=5)
+    now = datetime.datetime.now() + datetime.timedelta(minutes=30)
     exp = time.mktime(now.timetuple())
     encoded = jwt.encode(
         {"user_id": user_account.user_id, "exp": exp, "jti": str(uuid4())},

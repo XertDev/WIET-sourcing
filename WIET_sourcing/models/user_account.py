@@ -3,8 +3,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from WIET_sourcing.models import db
 from enum import Enum
 
+
 class UserState(Enum):
     UNVERIFIED = "UNVERIFIED"
+    VERIFIED = "VERIFIED"
     # TODO: add more
 
 

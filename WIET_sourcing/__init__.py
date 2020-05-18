@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_admin.contrib.sqla import ModelView
 from flask_graphql import GraphQLView
 from flask_migrate import Migrate
 

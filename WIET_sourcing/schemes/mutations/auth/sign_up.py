@@ -21,7 +21,8 @@ class SignUp(graphene.Mutation):
 
     user_profile = graphene.Field(UserProfileNode)
 
-    def mutate(self, info, name, email, password):
+    @staticmethod
+    def mutate(root, info, name, email, password):
         if not validate_email(email) or not validate_password(password):
             raise GraphQLError("Invalid email or password")
 

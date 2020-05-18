@@ -19,7 +19,8 @@ class CloseQuestionSet(graphene.Mutation):
 
 	question_set = graphene.Field(QuestionSetNode)
 
-	def mutate(self, info, node_id):
+	@staticmethod
+	def mutate(root, info, node_id):
 		question_set = QuestionSetNode.get_model_from_global_id(node_id)
 		if not question_set:
 			raise GraphQLError("Question set not exist")

@@ -13,7 +13,8 @@ class RefreshSignIn(graphene.Mutation):
 
     token = graphene.String()
 
-    def mutate(self, info):
+    @staticmethod
+    def mutate(root, info):
         user_account = get_logged_in_user()
 
         token = generate_user_token(user_account)

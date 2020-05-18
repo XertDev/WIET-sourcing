@@ -17,7 +17,8 @@ class ChangePassword(graphene.Mutation):
 
 	user_profile = graphene.Field(UserProfileNode)
 
-	def mutate(self, info, password):
+	@staticmethod
+	def mutate(root, info, password):
 		user = get_logged_in_user()
 		if not validate_password(password):
 			raise GraphQLError("Invalid password")

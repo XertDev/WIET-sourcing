@@ -16,7 +16,8 @@ class SignIn(graphene.Mutation):
 
 	token = graphene.String()
 
-	def mutate(self, info, email, password):
+	@staticmethod
+	def mutate(root, info, email, password):
 		user_acc = user_service.get_user_by_email(email)
 		if not user_acc or not user_acc.check_password(password):
 			raise GraphQLError("Invalid email or password")

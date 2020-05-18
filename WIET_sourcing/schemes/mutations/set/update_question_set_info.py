@@ -3,7 +3,6 @@ from graphql import GraphQLError
 from sqlalchemy import exc
 
 from WIET_sourcing.models import db
-from WIET_sourcing.models.question_set import Category
 from WIET_sourcing.schemes.question_set.question_set_node import QuestionSetNode
 from WIET_sourcing.service.auth import get_logged_in_user
 
@@ -16,12 +15,12 @@ class UpdateQuestionSetInfo(graphene.Mutation):
 	class Arguments:
 		node_id = graphene.ID(required=True, description="Question Set to update ID")
 		name = graphene.String(required=False, description="Set name")
-		category = graphene.String(required=False, description="Set category")
 		details = graphene.String(required=False, description="Set details")
 
 	question_set = graphene.Field(QuestionSetNode)
 
-	def mutate(self, info, node_id, **kwargs):
+	@staticmethod
+	def mutate(root, info, node_id, **kwargs):
 		question_set = QuestionSetNode.get_model_from_global_id(node_id)
 		if not question_set:
 			raise GraphQLError("Question set not exist")
@@ -40,12 +39,6 @@ class UpdateQuestionSetInfo(graphene.Mutation):
 			if len(details) < 20:
 				raise GraphQLError("Invalid description")
 			question_set.details = details
-
-		if "category" in kwargs:
-			category_str = kwargs["category"]
-			if not Category.has_value(category_str):
-				raise GraphQLError("Invalid category")
-			question_set.category = Category[category_str].value
 
 		try:
 			db.session.commit()

@@ -5,24 +5,21 @@ from sqlalchemy import exc
 
 from WIET_sourcing import UserProfile
 from WIET_sourcing.models import db
-from WIET_sourcing.models.question_set import QuestionSet, Category
+from WIET_sourcing.models.question_set import QuestionSet
 
 
-def create_question_set(name: str, details: Optional[str], category: str, owner: UserProfile):
-	if not Category.has_value(category):
-		return None
-
+def create_question_set(name: str, details: Optional[str], owner: UserProfile):
 	question_set = QuestionSet()
 	question_set.name = name
 	question_set.details = details
-	question_set.category = category
 	question_set.owner_profile = owner
 
 	db.session.add(question_set)
 
 	try:
 		db.session.commit()
-		return question_set
 	except exc.SQLAlchemyError:
 		logging.exception("Couldn't create question set")
-	return None
+		return None
+	return question_set
+

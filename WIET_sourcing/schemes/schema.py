@@ -5,6 +5,7 @@ from graphene_sqlalchemy_filter import FilterableConnectionField
 
 from WIET_sourcing.question_loader import question_loader_manager
 from WIET_sourcing.schemes.mutations.auth.change_password import ChangePassword
+from WIET_sourcing.schemes.mutations.auth.confirm_email import ConfirmEmail
 from WIET_sourcing.schemes.mutations.auth.refresh_sign_in import RefreshSignIn
 from WIET_sourcing.schemes.mutations.set.close_question_set import CloseQuestionSet
 from WIET_sourcing.schemes.mutations.set.create_question_set_empty import CreateQuestionSetEmpty
@@ -53,6 +54,7 @@ def create_mutation_schema() -> Type[graphene.ObjectType]:
     mutations = {
         "sign_up": SignUp.Field(),
         "sign_in": SignIn.Field(),
+        "confirm_email": ConfirmEmail.Field(),
         "refresh_sign_in": RefreshSignIn.Field(),
         "change_password": ChangePassword.Field(),
         "create_question_set_empty": CreateQuestionSetEmpty.Field(),

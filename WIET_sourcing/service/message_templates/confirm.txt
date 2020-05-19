@@ -1,0 +1,2 @@
+Hi {name},
+Thank you for your interest in WIETsourcing. Here is your confirmation code: {code}

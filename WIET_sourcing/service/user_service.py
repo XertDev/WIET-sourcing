@@ -8,7 +8,7 @@ from WIET_sourcing.models.user_account import UserAccount
 from WIET_sourcing.models.user_profile import UserProfile, UserRole
 
 
-def create_user(name: str, email: str, password: str) -> Optional[int]:
+def create_user(name: str, email: str, password: str, code: str) -> Optional[int]:
     user_account = UserAccount.query.filter_by(email=email).first()
     if user_account:
         return None
@@ -16,6 +16,7 @@ def create_user(name: str, email: str, password: str) -> Optional[int]:
     user_account = UserAccount()
     user_account.email = email
     user_account.set_password(password)
+    user_account.password_reset_tok = code
 
     user_profile = UserProfile()
     user_profile.name = name

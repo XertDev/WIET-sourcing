@@ -29,3 +29,9 @@ class UserAccount(db.Model):
 
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
+
+    def check_code(self, code: str) -> bool:
+        return self.password_reset_tok == code
+
+    def set_email_as_verified(self) -> None:
+        self.user_state = UserState.VERIFIED.value

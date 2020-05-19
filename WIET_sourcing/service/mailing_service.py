@@ -19,7 +19,7 @@ port = 465
 def send_confirmation_mail_to(receiver_email, receiver_name, code) -> None:
     sender_email = "loginfajnegoczlowieka@gmail.com"
     # password = input("Type your password and press enter: ")
-    password = ****
+    password = "haslofajnegoczlowieka"
 
     message_template = message_templates["confirm"]
     message = MIMEMultipart("alternative")

@@ -9,9 +9,9 @@ from WIET_sourcing.schemes.question_set.question_set_node import QuestionSetNode
 from WIET_sourcing.service.auth import get_logged_in_user
 
 
-class CloseQuestionSet(graphene.Mutation):
+class OpenQuestionSet(graphene.Mutation):
 	"""
-	Mutation to close question set
+	Mutation to open question set for answering
 	"""
 
 	class Arguments:
@@ -28,14 +28,14 @@ class CloseQuestionSet(graphene.Mutation):
 		if question_set.owner_profile != get_logged_in_user().user_profile:
 			raise GraphQLError("Permission Denied")
 
-		if question_set.close_date:
-			raise GraphQLError("Question set already closed")
+		if question_set.open_date:
+			raise GraphQLError("Question set already opened")
 
-		question_set.close_date = datetime.now()
+		question_set.open_date = datetime.now()
 
 		try:
 			db.session.commit()
 		except exc.SQLAlchemyError:
 			raise GraphQLError("Failed to close question set")
 
-		return CloseQuestionSet(question_set=question_set)
+		return OpenQuestionSet(question_set=question_set)

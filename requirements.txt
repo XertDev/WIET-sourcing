@@ -30,4 +30,4 @@ validate_email
 flask-cors
 pyjwt
 flask-admin==1.5.6
-
+huey

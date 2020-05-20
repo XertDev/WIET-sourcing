@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 from typing import Optional
 
 import graphene
@@ -41,6 +42,14 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 
 	user = get_logged_in_user()
 
+	question = Question.query.get(question_id)
+
+	if not question.question_set.open_date:
+		raise GraphQLError("Question set not yet opened")
+
+	if not question.question_set.close_date and question.question_set.close_date < datetime.now():
+		raise GraphQLError("Question set closed")
+
 	question_answer = QuestionAnswer.query.filter(
 		and_(
 			QuestionAnswer.question_id == question_id,
@@ -52,7 +61,7 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 		raise GraphQLError("User already answered for the question")
 
 	question_answer = QuestionAnswer()
-	question_answer.question_id = question_id
+	question_answer.question = question
 	question_answer.user = user
 	question_answer.payload = payload
 

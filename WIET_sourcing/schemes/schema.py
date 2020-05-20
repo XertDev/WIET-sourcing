@@ -9,6 +9,7 @@ from WIET_sourcing.schemes.mutations.auth.confirm_email import ConfirmEmail
 from WIET_sourcing.schemes.mutations.auth.refresh_sign_in import RefreshSignIn
 from WIET_sourcing.schemes.mutations.set.close_question_set import CloseQuestionSet
 from WIET_sourcing.schemes.mutations.set.create_question_set_empty import CreateQuestionSetEmpty
+from WIET_sourcing.schemes.mutations.set.open_question_set import OpenQuestionSet
 from WIET_sourcing.schemes.mutations.set.update_question_set_info import UpdateQuestionSetInfo
 from WIET_sourcing.schemes.mutations.auth.sign_up import SignUp
 from WIET_sourcing.schemes.mutations.auth.sign_in import SignIn
@@ -59,7 +60,8 @@ def create_mutation_schema() -> Type[graphene.ObjectType]:
         "change_password": ChangePassword.Field(),
         "create_question_set_empty": CreateQuestionSetEmpty.Field(),
         "update_question_set_info": UpdateQuestionSetInfo.Field(),
-        "close_question_set": CloseQuestionSet.Field()
+        "close_question_set": CloseQuestionSet.Field(),
+        "open_question_set": OpenQuestionSet.Field()
     }
     for name, mutation in question_loader_manager.get_supported_question_create_mutations():
         mutations["create_" + name] = mutation.Field()

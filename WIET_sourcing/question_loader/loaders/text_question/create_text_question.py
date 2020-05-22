@@ -14,6 +14,8 @@ class CreateTextQuestion(graphene.ClientIDMutation):
 		question = graphene.String(required=True, description="Question phrase")
 		answers = graphene.List(graphene.String, required=True, description="Available answers")
 
+	question_id = graphene.Int()
+
 	@staticmethod
 	def mutate_and_get_payload(root, info, question_set_node_id, multi_answer, question, answers):
 		payload = {
@@ -26,3 +28,5 @@ class CreateTextQuestion(graphene.ClientIDMutation):
 		question_id = create_question(question_set_node_id, payload)
 		if not question_id:
 			raise GraphQLError("Failed to create question")
+
+		return CreateTextQuestion(question_id=question_id)

@@ -18,7 +18,7 @@ class CreateQuestionSetEmpty(graphene.Mutation):
 	question_set = graphene.Field(QuestionSetNode)
 
 	@staticmethod
-	def mutate(root, info, name, category, details):
+	def mutate(root, info, name, details):
 		if len(name) < 5 or len(details) < 20:
 			raise GraphQLError("Name or description invalid")
 

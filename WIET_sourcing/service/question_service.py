@@ -62,7 +62,7 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 
 	question_answer = QuestionAnswer()
 	question_answer.question = question
-	question_answer.user = user
+	question_answer.user = user.user_profile
 	question_answer.payload = payload
 
 	db.session.add(question_answer)

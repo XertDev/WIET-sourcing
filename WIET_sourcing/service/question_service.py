@@ -60,9 +60,10 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 	if question_answer is not None:
 		raise GraphQLError("User already answered for the question")
 
+	user_profile = user.user_profile
 	question_answer = QuestionAnswer()
 	question_answer.question = question
-	question_answer.user = user.user_profile
+	question_answer.user = user_profile
 	question_answer.payload = payload
 
 	db.session.add(question_answer)

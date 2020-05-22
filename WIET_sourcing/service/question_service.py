@@ -53,7 +53,7 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 	question_answer = QuestionAnswer.query.filter(
 		and_(
 			QuestionAnswer.question_id == question_id,
-			QuestionAnswer.user_id == user.id
+			QuestionAnswer.user_id == user.user_id
 		)
 	).first()
 

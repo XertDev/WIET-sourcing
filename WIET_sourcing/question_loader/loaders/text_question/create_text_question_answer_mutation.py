@@ -15,7 +15,7 @@ class CreateTextQuestionAnswer(graphene.Mutation):
 	success = graphene.Boolean()
 
 	@staticmethod
-	def mutate(root, question_node_id: graphene.ID, answer_indices: graphene.List(graphene.String), info):
+	def mutate(root, info, question_node_id: graphene.ID, answer_indices: graphene.List(graphene.String)):
 		payload = {
 			"answer_index": answer_indices
 		}

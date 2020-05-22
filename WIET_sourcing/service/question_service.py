@@ -47,7 +47,7 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 	if not question.question_set.open_date:
 		raise GraphQLError("Question set not yet opened")
 
-	if not question.question_set.close_date and question.question_set.close_date < datetime.now():
+	if question.question_set.close_date is not None and question.question_set.close_date < datetime.now():
 		raise GraphQLError("Question set closed")
 
 	question_answer = QuestionAnswer.query.filter(

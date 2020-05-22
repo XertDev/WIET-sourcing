@@ -57,7 +57,7 @@ def create_question_answer(question_node_id: graphene.ID, payload: dict) -> Opti
 		)
 	).first()
 
-	if not question_answer:
+	if question_answer is not None:
 		raise GraphQLError("User already answered for the question")
 
 	question_answer = QuestionAnswer()

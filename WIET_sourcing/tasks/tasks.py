@@ -10,5 +10,8 @@ huey_app = create_app_huey()
 
 @huey.periodic_task(crontab(minute="*/15"))
 def recalculate_dataset_answer_summary():
-    question_loader_manager = QuestionLoaderManager()
-    # TODO
+    """
+    TODO: look through all datasets and close those that have convergence above threshold and satisfactory
+        amount of answers
+    """
+    pass

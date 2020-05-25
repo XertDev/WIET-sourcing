@@ -19,7 +19,7 @@ class QuestionSet(db.Model):
     close_date = db.Column(db.TIMESTAMP)
     open_date = db.Column(db.TIMESTAMP)
 
-    to_update = db.Column(db.Boolean, server_default=False)
+    to_update = db.Column(db.Boolean, server_default="0")
 
     owner_profile = db.relationship(
         "UserProfile", backref=db.backref("question_sets", lazy=True)

@@ -57,8 +57,8 @@ class AbstractQuestionLoader(ABC):
 		"""
 		pass
 
-	@abstractmethod
 	@staticmethod
+	@abstractmethod
 	def calculate_answers_convergence(question_payload: dict, answers_count: int) -> float:
 		"""
 		:return answers convergence as float from interval [0, 1]

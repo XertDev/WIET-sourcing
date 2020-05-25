@@ -11,6 +11,5 @@ SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI',
 
 REDIS_URL = os.getenv('REDIS_URL')
 SQLITE_PATH = "sqlite:///" + os.path.join(basedir, 'WIET_sourcing/appdb.db')
-print(SQLITE_PATH)
 
 huey = RedisHuey(url=REDIS_URL) if REDIS_URL is not None else SqliteHuey(SQLITE_PATH)

@@ -7,6 +7,7 @@ from WIET_sourcing.question_loader.loaders.text_question.create_text_question im
 from WIET_sourcing.question_loader.loaders.text_question.create_text_question_answer_mutation import \
 	CreateTextQuestionAnswer
 from WIET_sourcing.question_loader.loaders.text_question.text_question_node import TextQuestionNode
+from WIET_sourcing.question_loader.loaders.text_question.calculate_convergence import calculate_convergence
 
 
 class TextQuestionLoader(AbstractQuestionLoader):
@@ -35,3 +36,7 @@ class TextQuestionLoader(AbstractQuestionLoader):
 
 		return node
 
+	@staticmethod
+	def calculate_answers_convergence(payload: dict, answers_count: int) -> float:
+		submitted_answers = payload["submitted_answers"]
+		return calculate_convergence(submitted_answers, answers_count)

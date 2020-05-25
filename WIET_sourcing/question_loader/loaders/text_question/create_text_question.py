@@ -22,7 +22,9 @@ class CreateTextQuestion(graphene.ClientIDMutation):
 			"typename": "text_question",
 			"multi_answer": multi_answer,
 			"question": question,
-			"answers": answers
+			"answers": answers,
+			"submitted_answers": [0]*len(answers),
+			"answers_convergence": None
 		}
 
 		question_id = create_question(question_set_node_id, payload)

@@ -11,3 +11,4 @@ KEY_SIGNING_SECRET = os.getenv("WIET_SIGNING_SECRET",
 
 STATIC_FOLDER = "/static"
 USER_DATA_FOLDER = "/user_data"
+
